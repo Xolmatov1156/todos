@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import UpdateBtn from '../src/assets/images/update.svg'
 import DeleteBtn from '../src/assets/images/delete.svg'
 import { Context } from './Context/Context'
@@ -7,11 +7,13 @@ import Modal from './Modal'
 
 const TodoList = () => {
   const {todos , setTodos} = useContext(Context)
+  const {isOpenModal, setisOpenModal} = useState(false)
   function DeleteTodo(id){
     const findedIndex = todos.findIndex(item => item.id == id)
     todos.splice(findedIndex, 1)
     setTodos([...todos])
   }
+  
   return (
     <>
     <ul className='w-[600px] mx-auto flex flex-col gap-5 mt-[50px]'>
@@ -23,13 +25,15 @@ const TodoList = () => {
           </div>
         <div className='flex items-center gap-3'>
         <input type="checkbox"/>
-        <button><img src={UpdateBtn} alt="update" className='text-white'/></button>
+        <button onClick={() => UpdateTodo(item.id)}><img src={UpdateBtn} alt="update" className='text-white'/></button>
         <button onClick={() => DeleteTodo(item.id)}><img src={DeleteBtn} alt="delete" className='text-white'/></button>
         </div>
         </li>
     ))}
 </ul>
-    <Modal />
+    <Modal isOpenModal={isOpenModal} setisOpenModal={setisOpenModal}>
+      <form></form>
+      </Modal>
     </>
   )
 }

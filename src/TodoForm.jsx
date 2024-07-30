@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react'
 import { Context } from './Context/Context'
 
 function TodoForm (){
-  const {todos , setTodos} = useContext(Context)
+  const {todos , setTodos, AddTodo} = useContext(Context)
   const inputRef = useRef()
 function handleSubmit(e){
   e.preventDefault()
@@ -11,7 +11,7 @@ function handleSubmit(e){
     title:inputRef.current.value,
     isComplated:false,
   }
-  setTodos([...todos, setTodos])
+  AddTodo(todo)
   e.target.reset()
 }
   return (
